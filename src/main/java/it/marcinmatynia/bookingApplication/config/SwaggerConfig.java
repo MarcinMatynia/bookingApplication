@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
@@ -26,8 +25,7 @@ public class SwaggerConfig {
                 .groupName("bookingApplication")
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/v1/.*"))
+                .apis(RequestHandlerSelectors.basePackage("it.marcinmatynia.bookingApplication"))
                 .build()
                 .globalResponseMessage(RequestMethod.GET,
                         Collections.singletonList(new ResponseMessageBuilder()
