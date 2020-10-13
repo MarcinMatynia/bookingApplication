@@ -10,16 +10,18 @@ import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @Getter
-@Setter
+@Setter(AccessLevel.PACKAGE)
 @Entity
 @Table(name = "experts")
 class Expert {
-    @Setter(AccessLevel.PACKAGE)
+    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotBlank(message = "First name must be given")
     private String name;
+
     @NotBlank(message = "Surname must be given")
     private String surname;
 }
