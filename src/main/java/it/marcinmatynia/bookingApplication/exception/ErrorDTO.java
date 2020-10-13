@@ -12,5 +12,6 @@ import java.util.Map;
 @NoArgsConstructor
 class ErrorDTO {
     private HttpStatus status;
+    private String message;
     private Map<String, String> invalidFields;
 }
