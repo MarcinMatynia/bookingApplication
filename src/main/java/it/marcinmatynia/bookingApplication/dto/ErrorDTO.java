@@ -1,16 +1,16 @@
-package it.marcinmatynia.bookingApplication.exception;
+package it.marcinmatynia.bookingApplication.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Map;
 
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
-class ErrorDTO {
+public class ErrorDTO {
     private HttpStatus status;
     private String message;
     private Map<String, String> invalidFields;

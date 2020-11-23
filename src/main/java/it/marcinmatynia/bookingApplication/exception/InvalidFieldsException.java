@@ -1,15 +1,13 @@
 package it.marcinmatynia.bookingApplication.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.FieldError;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
-@ToString
 public class InvalidFieldsException extends RuntimeException {
     private final List<FieldError> errors;
 }

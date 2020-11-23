@@ -1,7 +1,9 @@
-package it.marcinmatynia.bookingApplication.experts;
+package it.marcinmatynia.bookingApplication.controller;
 
-import it.marcinmatynia.bookingApplication.tools.HasLogger;
-import lombok.AllArgsConstructor;
+import it.marcinmatynia.bookingApplication.dto.ExpertDTO;
+import it.marcinmatynia.bookingApplication.service.ExpertService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -11,24 +13,24 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 @RestController
 @RequestMapping("/experts")
-class ExpertController implements HasLogger {
+class ExpertController {
 
     private final ExpertService expertService;
 
     @GetMapping
-    ResponseEntity<List<Expert>> readAllExpert() {
+    ResponseEntity<List<ExpertDTO>> readAllExpert() {
         var experts = expertService.getAllExpert();
-        getLogger().info("Exposing all experts.");
+        log.info("Exposing all experts.");
         return new ResponseEntity<>(experts, HttpStatus.OK);
     }
 
     @PostMapping
-    ResponseEntity<Expert> createExpert(@RequestBody Expert toCreate, @ApiIgnore Errors errors) {
+    ResponseEntity<ExpertDTO> createExpert(@RequestBody ExpertDTO toCreate, @ApiIgnore Errors errors) {
         var expert = expertService.createNewExpert(toCreate, errors);
-        getLogger().info("Expert with id: " + expert.getId() + " was created");
         return new ResponseEntity<>(expert, HttpStatus.CREATED);
     }
 
@@ -36,7 +38,16 @@ class ExpertController implements HasLogger {
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteExpert(@PathVariable int id) {
         expertService.deleteExpertById(id);
-        getLogger().info("Expert with id: " + id + " was deleted.");
+        log.info("Expert with id: " + id + " was deleted.");
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Transactional
+    @PatchMapping("/{id}")
+    ResponseEntity<?> updateExpert(@PathVariable int id, @RequestBody ExpertDTO toUpdate) {
+        expertService.updateExpertById(id, toUpdate);
+        log.info("Expert with id: " + id + " was updated.");
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
+
