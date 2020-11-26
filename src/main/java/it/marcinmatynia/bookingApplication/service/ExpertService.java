@@ -50,23 +50,6 @@ public class ExpertService {
         expertRepository.deleteById(id);
     }
 
-    public void updateExpertById(final int id, ExpertDTO toUpdate) {
-        var expert = expertRepository.findById(id).orElseThrow(() -> {
-            throw new InvalidIdException(id);
-        });
-        var nameToUpdate = toUpdate.getName();
-        var surnameToUpdate = toUpdate.getSurname();
-
-        if (nameToUpdate != null && nameToUpdate.length() > 0) {
-            expert.setName(toUpdate.getName());
-        }
-        if (surnameToUpdate != null && surnameToUpdate.length() > 0) {
-            expert.setSurname(toUpdate.getSurname());
-        }
-
-        expertRepository.save(expert);
-    }
-
     private Expert mapExpertDtoToExpert(final ExpertDTO toCreate) {
         return new Expert(toCreate.getName(), toCreate.getSurname());
     }

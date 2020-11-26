@@ -41,13 +41,5 @@ class ExpertController {
         log.info("Expert with id: " + id + " was deleted.");
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @Transactional
-    @PatchMapping("/{id}")
-    ResponseEntity<?> updateExpert(@PathVariable int id, @RequestBody ExpertDTO toUpdate) {
-        expertService.updateExpertById(id, toUpdate);
-        log.info("Expert with id: " + id + " was updated.");
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 }
 
